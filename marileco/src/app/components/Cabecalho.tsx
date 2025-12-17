@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 export default function Header() {
   return (
     <header className="w-full border-b bg-white">
@@ -16,19 +15,4 @@ export default function Header() {
       </div>
     </header>
   )
-=======
-export default function Cabecalho() {
-  return (
-    <header
-      style={{
-        padding: "20px",
-        borderBottom: "1px solid #eee",
-        fontSize: "24px",
-        fontWeight: "bold",
-      }}
-    >
-      MARILECO
-    </header>
-  );
->>>>>>> 4675b15e6fbfaa7fe4ad85a18208b1e45130716f
 }
