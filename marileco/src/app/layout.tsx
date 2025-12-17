@@ -1,8 +1,10 @@
 import "./globals.css";
+import Cabecalho from "./components/Cabecalho";
+import Footer from "./components/Footer";
 
 export const metadata = {
   title: "Marileco",
-  description: "E-commerce Marileco",
+  description: "Loja Marileco",
 };
 
 export default function RootLayout({
@@ -12,7 +14,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body>{children}</body>
+      <body>
+        <Cabecalho />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }

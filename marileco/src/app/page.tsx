@@ -1,20 +1,19 @@
-import Cabecalho from "./components/Cabecalho";
-
 export default function Home() {
   return (
-    <>
-      <Cabecalho />
+    <main className="container">
+      <section className="hero">
+        <h2>Bem-vindo à Marileco</h2>
+        <p>Loja em construção 🛠️</p>
+        <button>Ver produtos</button>
+      </section>
 
-      <main
-  style={{
-    padding: "60px 40px",
-    maxWidth: "1200px",
-    margin: "0 auto",
-  }}
->
-        <h1>Bem-vindo à Marileco</h1>
-        <p>Loja em construção 🚧</p>
-      </main>
-    </>
+      <section className="info">
+        <h3>O que estamos preparando?</h3>
+        <p>
+          Uma loja focada em qualidade, confiança e produtos selecionados com
+          responsabilidade.
+        </p>
+      </section>
+    </main>
   );
 }
