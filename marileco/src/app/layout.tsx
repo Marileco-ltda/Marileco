@@ -1,9 +1,8 @@
-import React from "react";
 import "./globals.css";
 
 export const metadata = {
-  title: "Marileco — Beleza, Saúde & Bem-Estar",
-  description: "Marileco | E-commerce nacional de beleza e bem-estar"
+  title: "Marileco",
+  description: "E-commerce Marileco",
 };
 
 export default function RootLayout({
