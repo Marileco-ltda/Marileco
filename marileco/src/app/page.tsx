@@ -22,6 +22,7 @@ export default function Home() {
         </p>
       </main>
 
+<<<<<<< HEAD
       {/* PRODUTOS */}
       <section className="max-w-7xl mx-auto px-4 py-16">
         <h3 className="text-2xl font-bold mb-8">
@@ -49,6 +50,8 @@ export default function Home() {
         </div>
       </section>
 
+=======
+>>>>>>> 4675b15e6fbfaa7fe4ad85a18208b1e45130716f
       <Footer />
     </>
   );
