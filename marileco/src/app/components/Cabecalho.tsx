@@ -1,18 +1,24 @@
-export default function Header() {
-  return (
-    <header className="w-full border-b bg-white">
-      <div className="max-w-7xl mx-auto flex items-center justify-between p-4">
-        <h1 className="text-2xl font-bold text-black">
-          MARILECO
-        </h1>
+import Link from "next/link";
 
-        <nav className="flex gap-6 text-sm font-medium">
-          <a href="#" className="hover:text-gray-500">Início</a>
-          <a href="#" className="hover:text-gray-500">Produtos</a>
-          <a href="#" className="hover:text-gray-500">Sobre</a>
-          <a href="#" className="hover:text-gray-500">Contato</a>
-        </nav>
-      </div>
+export default function Cabecalho() {
+  return (
+    <header
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "20px 40px",
+        borderBottom: "1px solid #ddd",
+      }}
+    >
+      <h1 style={{ margin: 0 }}>MARILECO</h1>
+
+      <nav style={{ display: "flex", gap: "20px" }}>
+        <Link href="/">Início</Link>
+        <Link href="/produtos">Produtos</Link>
+        <Link href="/sobre">Sobre</Link>
+        <Link href="/contato">Contato</Link>
+      </nav>
     </header>
-  )
+  );
 }
