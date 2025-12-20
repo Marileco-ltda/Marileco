@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,10 +7,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  name      String?
-  createdAt DateTime @default(now())
+model Product {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  price       Int      // valor em centavos (ex: 1990 = R$19,90)
+  imageUrl    String?
+  active      Boolean  @default(true)
+  createdAt  DateTime @default(now())
 }
