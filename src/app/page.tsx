@@ -1,19 +1,13 @@
-export default function Home() {
+export default async function Home() {
   return (
-    <main className="container">
-      <section className="hero">
-        <h2>Bem-vindo à Marileco</h2>
-        <p>Loja em construção 🛠️</p>
-        <button>Ver produtos</button>
-      </section>
+    <main className="p-10 max-w-6xl mx-auto">
+      <h1 className="text-3xl font-bold mb-6">
+        Marileco • Beleza & Estética
+      </h1>
 
-      <section className="info">
-        <h3>O que estamos preparando?</h3>
-        <p>
-          Uma loja focada em qualidade, confiança e produtos selecionados com
-          responsabilidade.
-        </p>
-      </section>
+      <p className="text-gray-600">
+        Em breve: os melhores produtos de beleza entregues direto dos nossos fornecedores.
+      </p>
     </main>
   );
 }
