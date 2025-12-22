@@ -1,42 +1,59 @@
-const produtos = [
-  {
-    id: 1,
-    nome: "Produto Exemplo 1",
-    descricao: "Descrição simples do produto.",
-    preco: "R$ 99,90",
-  },
-  {
-    id: 2,
-    nome: "Produto Exemplo 2",
-    descricao: "Outro produto de demonstração.",
-    preco: "R$ 149,90",
-  },
-  {
-    id: 3,
-    nome: "Produto Exemplo 3",
-    descricao: "Produto sustentável e de qualidade.",
-    preco: "R$ 199,90",
-  },
-];
+"use client";
 
-export default function Produtos() {
+import { useEffect, useState } from "react";
+import ProductForm from "../components/ProductForm";
+
+type Product = {
+  id: string;
+  name: string;
+  description?: string;
+  price: number;
+};
+
+export default function ProdutosPage() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [editing, setEditing] = useState<Product | null>(null);
+
+  async function loadProducts() {
+    const res = await fetch("/api/products");
+    const data = await res.json();
+    setProducts(data);
+  }
+
+  async function deleteProduct(id: string) {
+    await fetch(`/api/products?id=${id}`, { method: "DELETE" });
+    loadProducts();
+  }
+
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
   return (
-    <main className="container">
-      <h2 className="titulo">Nossos Produtos</h2>
+    <main style={{ padding: 24 }}>
+      <h1>Produtos</h1>
 
-      <div className="grid-produtos">
-        {produtos.map((produto) => (
-          <div key={produto.id} className="card-produto">
-            <div className="imagem-produto">Imagem</div>
+      <ProductForm
+        onSaved={() => {
+          setEditing(null);
+          loadProducts();
+        }}
+        editing={editing}
+      />
 
-            <h3>{produto.nome}</h3>
-            <p>{produto.descricao}</p>
-            <strong>{produto.preco}</strong>
+      <hr />
 
-            <button>Comprar</button>
-          </div>
-        ))}
-      </div>
+      {products.map((p) => (
+        <div key={p.id} style={{ marginBottom: 12 }}>
+          <strong>{p.name}</strong> — R$ {p.price}
+          <br />
+          {p.description}
+          <br />
+
+          <button onClick={() => setEditing(p)}>Editar</button>
+          <button onClick={() => deleteProduct(p.id)}>Excluir</button>
+        </div>
+      ))}
     </main>
   );
 }
