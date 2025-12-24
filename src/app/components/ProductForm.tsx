@@ -1,40 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-type Product = {
-  id?: string;
-  name: string;
-  description?: string;
-  price: number;
-};
+export default function ProductForm({ onSaved, editing }: any) {
+  const [name, setName] = useState(editing?.name ?? "");
+  const [description, setDescription] = useState(editing?.description ?? "");
+  const [price, setPrice] = useState(editing?.price ?? 0);
 
-export default function ProductForm({
-  onSaved,
-  editing,
-}: {
-  onSaved: () => void;
-  editing: Product | null;
-}) {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-
-  useEffect(() => {
-    if (editing) {
-      setName(editing.name);
-      setDescription(editing.description || "");
-      setPrice(String(editing.price));
-    }
-  }, [editing]);
-
-  async function submit(e: React.FormEvent) {
-    e.preventDefault();
-
-    const method = editing ? "PUT" : "POST";
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault(); // 🔴 ESSENCIAL
 
     await fetch("/api/products", {
-      method,
+      method: editing ? "PUT" : "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         id: editing?.id,
@@ -46,22 +23,18 @@ export default function ProductForm({
 
     setName("");
     setDescription("");
-    setPrice("");
+    setPrice(0);
+
     onSaved();
   }
 
   return (
-    <form onSubmit={submit}>
-      <h2>{editing ? "Editar produto" : "Novo produto"}</h2>
-
+    <form onSubmit={handleSubmit}>
       <input
         placeholder="Nome"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        required
       />
-
-      <br />
 
       <input
         placeholder="Descrição"
@@ -69,18 +42,12 @@ export default function ProductForm({
         onChange={(e) => setDescription(e.target.value)}
       />
 
-      <br />
-
       <input
         placeholder="Preço"
         type="number"
-        step="0.01"
         value={price}
-        onChange={(e) => setPrice(e.target.value)}
-        required
+        onChange={(e) => setPrice(Number(e.target.value))}
       />
-
-      <br />
 
       <button type="submit">
         {editing ? "Atualizar" : "Criar"}
