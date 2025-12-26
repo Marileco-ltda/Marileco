@@ -11,10 +11,13 @@ model Product {
   id          String   @id @default(uuid())
   name        String
   description String?
-  price       Int      // valor em centavos (ex: 1990 = R$19,90)
+  price       Float
   imageUrl    String?
   active      Boolean  @default(true)
-  createdAt  DateTime @default(now())
+  createdAt   DateTime @default(now())
+
+  supplierId  String?
+  supplier    Supplier? @relation(fields: [supplierId], references: [id])
 }
 model Supplier {
   id        String   @id @default(uuid())
@@ -25,13 +28,4 @@ model Supplier {
 
   products  Product[]
 }
-model Product {
-  id          String   @id @default(uuid())
-  name        String
-  description String?
-  price       Float
-  createdAt   DateTime @default(now())
 
-  supplierId  String?
-  supplier    Supplier? @relation(fields: [supplierId], references: [id])
-}
