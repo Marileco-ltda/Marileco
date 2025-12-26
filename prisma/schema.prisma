@@ -16,3 +16,22 @@ model Product {
   active      Boolean  @default(true)
   createdAt  DateTime @default(now())
 }
+model Supplier {
+  id        String   @id @default(uuid())
+  name      String
+  email     String?  @unique
+  phone     String?
+  createdAt DateTime @default(now())
+
+  products  Product[]
+}
+model Product {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  price       Float
+  createdAt   DateTime @default(now())
+
+  supplierId  String?
+  supplier    Supplier? @relation(fields: [supplierId], references: [id])
+}
