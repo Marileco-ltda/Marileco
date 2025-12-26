@@ -15,19 +15,38 @@ export async function GET() {
 /* =========================
    POST – criar produto
 ========================= */
+import { productSchema } from "@/lib/validators/product";
+
 export async function POST(req: Request) {
-  const body = await req.json();
+  try {
+    const body = await req.json();
 
-  const product = await prisma.product.create({
-    data: {
-      name: body.name,
-      description: body.description,
-      price: body.price,
-    },
-  });
+    const data = productSchema.parse({
+      ...body,
+      price: Number(body.price),
+    });
 
-  return NextResponse.json(product, { status: 201 });
+    const product = await prisma.product.create({
+      data,
+    });
+
+    return NextResponse.json(product, { status: 201 });
+
+  } catch (error: any) {
+    if (error.name === "ZodError") {
+      return NextResponse.json(
+        { errors: error.errors },
+        { status: 400 }
+      );
+    }
+
+    return NextResponse.json(
+      { error: "Erro interno" },
+      { status: 500 }
+    );
+  }
 }
+
 
 /* =========================
    PUT – atualizar produto
